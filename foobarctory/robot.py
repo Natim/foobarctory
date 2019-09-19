@@ -1,6 +1,6 @@
 import asyncio
-from enum import Enum
 import random
+from enum import Enum
 from uuid import uuid4
 
 
@@ -37,7 +37,7 @@ class Robot:
 
     def say(self, message):
         print(f"Robot {self.number}: {message}")
-        
+
     async def run_once(self):
         task = random.choice([t.value for t in list(TaskType)])
         self.say(f"Starting {task}")
@@ -48,7 +48,7 @@ class Robot:
 
     async def wait(self, seconds):
         await asyncio.sleep(seconds / self.factory.time_speeder)
-    
+
     async def move(self):
         """Switch miner type, takes 5 seconds."""
         await self.wait(5)
@@ -73,7 +73,9 @@ class Robot:
             self.say(f"Mining BAR: {new_bar}")
             self.factory.bar.append(new_bar)
         else:
-            raise NotImplementedError("The robot doesn't know how to mine {self.miner_task.value} things.")
+            raise NotImplementedError(
+                "The robot doesn't know how to mine {self.miner_task.value} things."
+            )
 
     async def assemble(self):
         """Assemble a foo and a bar."""
@@ -81,15 +83,15 @@ class Robot:
             # We don't have enough things to assemble
             self.say("Not enough ressource to assemble")
             return
-        
-        foo = self.factory.get_foo()  # In case they are no 
+
+        foo = self.factory.get_foo()  # In case they are no
         bar = self.factory.get_bar()
 
         await self.wait(2)  # It takes 2 seconds to assemble
 
         if random.randint(0, 9) < 6:
             # 60 % of the time it is a success
-            new_foobar= {"foo": foo, "bar": bar}
+            new_foobar = {"foo": foo, "bar": bar}
             self.say(f"Assembling FOOBAR: {new_foobar}")
             self.factory.foobar.append(new_foobar)
         else:
@@ -114,7 +116,9 @@ class Robot:
         if len(self.factory.foo) >= 6 and self.factory.money > 3:
             self.factory.money -= 3
             foos = [self.factory.get_foo() for x in range(6)]
-            self.say(f"Buying a new robot spending 3€ and the following foo objects: {foos}")
+            self.say(
+                f"Buying a new robot spending 3€ and the following foo objects: {foos}"
+            )
             self.factory.add_new_robot()
         else:
             self.say("Not enough ressource to buy")

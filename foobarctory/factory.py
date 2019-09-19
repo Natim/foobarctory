@@ -1,13 +1,16 @@
 import asyncio
 import logging
 
+from .robot import Robot
+
 logger = logging.getLogger("foobarctory")
 
-from .robot import Robot
 
 
 class Factory:
-    def __init__(self, *, loop=None, initial_number_of_robots=2, time_speeder=1, initial_money=0):
+    def __init__(
+        self, *, loop=None, initial_number_of_robots=2, time_speeder=1, initial_money=0
+    ):
         """Create a factory.
 
         time_speeder = How much faster does a second elapse.
@@ -20,7 +23,7 @@ class Factory:
 
         if loop is None:
             loop = asyncio.get_event_loop()
-        
+
         self.loop = loop
         self.running = True
         self.initial_number_of_robots = initial_number_of_robots
@@ -32,7 +35,7 @@ class Factory:
             self.add_new_robot()
 
         self.loop.create_task(self.show_factory_stats())
-            
+
     async def run_robot(self, robot):
         while True:
             if len(self.robots) > 30:
@@ -69,7 +72,8 @@ class Factory:
         return self.foobar.pop()
 
     def print_factory_stats(self):
-        print(f"""
+        print(
+            f"""
 +------------------------
 | FACTORY STATS                            
 |   - FOO: {len(self.foo)} objects
@@ -78,8 +82,8 @@ class Factory:
 |   - MONEY : {self.money} euros
 |   - ROBOTS : {len(self.robots)} robots running
 +------------------------
-""")
-        
+"""
+        )
 
     async def show_factory_stats(self):
         while True:
