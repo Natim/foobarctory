@@ -26,5 +26,9 @@ def main():
                       initial_money=args.money,
     )
     loop.create_task(factory.run_factory())
-    loop.run_forever()
-    print("Bye bye!")
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        print("\nBye bye!")
