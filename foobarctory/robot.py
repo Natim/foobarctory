@@ -82,7 +82,7 @@ class Robot:
             self.say("Not enough ressource to assemble")
             return
 
-        foo = self.factory.get_foo()  # In case they are no
+        foo = self.factory.get_foo()
         bar = self.factory.get_bar()
 
         await self.wait(2)  # It takes 2 seconds to assemble
