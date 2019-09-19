@@ -6,7 +6,6 @@ from .robot import Robot
 logger = logging.getLogger("foobarctory")
 
 
-
 class Factory:
     def __init__(
         self, *, loop=None, initial_number_of_robots=2, time_speeder=1, initial_money=0
@@ -75,7 +74,7 @@ class Factory:
         print(
             f"""
 +------------------------
-| FACTORY STATS                            
+| FACTORY STATS
 |   - FOO: {len(self.foo)} objects
 |   - BAR: {len(self.bar)} objects
 |   - FOOBAR : {len(self.foobar)} objects

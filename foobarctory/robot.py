@@ -30,16 +30,14 @@ class Robot:
         self.number = number
 
         if miner_type is None:
-            miner_type = random.choice(
-                [candidate.value for candidate in list(MinerType)]
-            )
+            miner_type = random.choice([candidate.value for candidate in MinerType])
         self.miner_task = MinerType(miner_type)
 
     def say(self, message):
         print(f"Robot {self.number}: {message}")
 
     async def run_once(self):
-        task = random.choice([t.value for t in list(TaskType)])
+        task = random.choice([t.value for t in TaskType])
         self.say(f"Starting {task}")
         if not hasattr(self, task):
             raise NotImplementedError("Task {task} is unkown for this robot.")
@@ -54,7 +52,7 @@ class Robot:
         await self.wait(5)
         previous_task = self.miner_task
         self.miner_task = random.choice(
-            [candidate for candidate in list(MinerType) if candidate != self.miner_task]
+            [candidate for candidate in MinerType if candidate != self.miner_task]
         )
         self.say(f"Moved from task {previous_task} to task {self.miner_task}")
 
