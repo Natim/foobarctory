@@ -5,6 +5,8 @@ from .robot import Robot
 
 logger = logging.getLogger("foobarctory")
 
+MAX_ROBOTS = 30
+
 
 class Factory:
     def __init__(
@@ -37,10 +39,10 @@ class Factory:
 
     async def run_robot(self, robot):
         while True:
-            if len(self.robots) > 30:
+            if len(self.robots) >= MAX_ROBOTS:
                 # Stop as soon as we reach 30 robots
                 if self.running:
-                    print("\n We've reach 30 robots, gathering robots. \n\n")
+                    print(f"\n We've reach {MAX_ROBOTS} robots, gathering robots. \n\n")
                     self.running = False
                     self.loop.stop()
                 return
@@ -55,11 +57,11 @@ class Factory:
                     pass
 
     def add_new_robot(self):
-        print("--------------- NEW ROBOT HIRED ------------------------")
-        self.print_factory_stats()
-        new_robot = Robot(self, len(self.robots))
+        new_robot = Robot(self, len(self.robots) + 1)
+        print(f"--------------- NEW ROBOT HIRED: {new_robot} ------------------------")
         self.robots.append(new_robot)
         self.loop.create_task(self.run_robot(new_robot))
+        self.print_factory_stats()
 
     def get_foo(self):
         return self.foo.pop()

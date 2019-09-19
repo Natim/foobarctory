@@ -34,7 +34,7 @@ class Robot:
         self.miner_task = MinerType(miner_type)
 
     def say(self, message):
-        print(f"Robot {self.number}: {message}")
+        print(f"{self}: {message}")
 
     async def run_once(self):
         task = random.choice([t.value for t in TaskType])
@@ -120,3 +120,6 @@ class Robot:
             self.factory.add_new_robot()
         else:
             self.say("Not enough ressource to buy")
+
+    def __str__(self):
+        return f"Robot {self.number}"
