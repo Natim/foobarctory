@@ -61,13 +61,13 @@ class Robot:
         if self.miner_task == MinerType.FOO:
             # Mine FOO objects
             await self.wait(1)
-            new_foo = {"uuid": f"{uuid4()}"}
+            new_foo = {"uuid": f"{uuid4()}", "type": "foo"}
             self.say(f"Mining FOO: {new_foo}")
             self.factory.foo.append(new_foo)
         elif self.miner_task == MinerType.BAR:
             # Mine BAR objects
             await self.wait(random.randrange(1, 4) / 2)
-            new_bar = {"uuid": f"{uuid4()}"}
+            new_bar = {"uuid": f"{uuid4()}", "type": "bar"}
             self.say(f"Mining BAR: {new_bar}")
             self.factory.bar.append(new_bar)
         else:
@@ -89,7 +89,7 @@ class Robot:
 
         if random.randint(0, 9) < 6:
             # 60 % of the time it is a success
-            new_foobar = {"foo": foo, "bar": bar}
+            new_foobar = [foo, bar]
             self.say(f"Assembling FOOBAR: {new_foobar}")
             self.factory.foobar.append(new_foobar)
         else:
